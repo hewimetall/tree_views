@@ -16,7 +16,6 @@ def vue_app(request):
 
 def selected_api(request):
     data = [ i.name for i in WorkSelect.objects.all() if len(i.name) !=0]
-    print(data)
     return JsonResponse(data,safe=False)
 
 
