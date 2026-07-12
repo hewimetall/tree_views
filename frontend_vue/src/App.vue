@@ -1,25 +1,25 @@
 <template>
 <div class="container">
   <h1> Test nested set  </h1>
-    <template     v-for="(alert,index)  in this.$store.state.alert" >
-          <b-alert v-model="alert.showDismissibleAlert" variant="danger" :key = 'index' dismissible>
-              Dismissible Alert!
-        </b-alert>
+    <template v-for="(alert, index) in this.$store.state.alert" :key="index">
+      <div v-if="alert.showDismissibleAlert" class="alert alert-danger alert-dismissible" role="alert">
+        Dismissible Alert!
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          @click="alert.showDismissibleAlert = false"
+        ></button>
+      </div>
     </template>
-      <b-card no-body>
-    <b-tabs pills card vertical>
-      <b-tab title="Tab 1" active><b-card-text>
-    <div class="row m-2 d-flex" >
-            <b-button @click="add_struct">add struct</b-button>
+  <div class="card">
+    <div class="card-body">
+      <div class="row m-2 d-flex">
+        <button type="button" class="btn btn-primary" @click="add_struct">add struct</button>
+      </div>
+      <nested :elems="this.$store.state.elements" />
     </div>
-    <nested :elems='this.$store.state.elements' />
-        </b-card-text></b-tab>
-      <b-tab title="Tab 2"><b-card-text>Tab contents 2</b-card-text></b-tab>
-      <b-tab title="Tab 3"><b-card-text>Tab contents 3</b-card-text></b-tab>
-
-        </b-tabs>
-  </b-card>
-
+  </div>
 </div>
 </template>
 
@@ -28,7 +28,6 @@ import nested from './components/nested.vue';
 
 export default {
   name: 'App',
-  delimiters: ['[[', ']]'],
   components: {
     nested,
   },

@@ -1,23 +1,11 @@
-import Fragment from 'vue-fragment';
-import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
-import Vuex from 'vuex';
+import { createApp } from 'vue';
+import { createStore } from 'vuex';
+import axios from 'axios';
 import App from './App.vue';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-const axios = require('axios').default;
-
-Vue.prototype.axios = axios;
-Vue.use(Fragment.Plugin);
-
-Vue.use(BootstrapVue);
-
-Vue.config.productionTip = false;
-Vue.use(Vuex);
-
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     elements: [],
     alert: [],
@@ -76,11 +64,9 @@ const store = new Vuex.Store({
   },
 });
 
-new Vue({
-  store,
-  render: (h) => h(App),
-  mounted() {
-    // this.$store.dispatch('longPulling');
-    setInterval(() => { this.$store.dispatch('longPulling'); }, 1000);
-  },
-}).$mount('#app');
+const app = createApp(App);
+
+app.use(store);
+app.mount('#app');
+
+setInterval(() => { store.dispatch('longPulling'); }, 1000);

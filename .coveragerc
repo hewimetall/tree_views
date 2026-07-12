@@ -1,0 +1,10 @@
+[run]
+source = core
+omit =
+    core/api/tests.py
+    core/migrations/*
+    core/tests.py
+
+[report]
+show_missing = True
+fail_under = 93
