@@ -20,7 +20,9 @@ safe for local development.
 | `SECRET_KEY` | development-only key | Django signing key. Set this in deployed environments. |
 | `DEBUG` | `true` | Enables Django debug mode when set to `true`, `1`, `yes`, or `on`. |
 | `ALLOWED_HOSTS` | empty | Comma-separated hostnames allowed by Django. |
-| `DATABASE_URL` | `sqlite:///db.sqlite3` | Reserved for future database configuration; local development uses SQLite. |
+
+Copy `.env.example` if you want a local reference file. Django uses SQLite at
+`db.sqlite3` for local development.
 
 ## Backend setup
 

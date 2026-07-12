@@ -1,15 +1,12 @@
 <template>
-<fragment>
-<b-input-group tag='form'>
-    <b-form-input :placeholder="field.username" v-model='myfield.label'  />
+  <form class="input-group">
+    <input v-model="myfield.label" class="form-control" :placeholder="fields.username" />
   <slot></slot>
-            </b-input-group>
-</fragment>
+  </form>
 </template>
 
 <script>
 export default {
-  delimiters: ['[[', ']]'],
   data() {
     const index = Math.random();
     return { index, myfield: this.fields };

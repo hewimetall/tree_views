@@ -1,22 +1,22 @@
 <template>
-      <div class="p-12">
-                <draggable
-                :list="elems"
-                 @start="move"
-                 @end="move"
-                v-bind="dragOptions"
-                :move='onMoveCallback'
-      >
-  <div class="container-fluid border m-2" v-for="el in elems"
-  :key="el.pk">
-  <row :row='el' />
-  <NestedItem :elems="el.tree_children" v-if="el.tree_children"/>
-<NestedItem :elems="el.children" v-if="el.children"/>
-       </div>
-
-                </draggable>
-</div>
-
+  <div class="p-12">
+    <draggable
+      :list="elems"
+      item-key="pk"
+      v-bind="dragOptions"
+      :move="onMoveCallback"
+      @start="move"
+      @end="move"
+    >
+      <template #item="{ element }">
+        <div class="container-fluid border m-2">
+          <row :row="element" />
+          <NestedItem v-if="element.tree_children" :elems="element.tree_children" />
+          <NestedItem v-if="element.children" :elems="element.children" />
+        </div>
+      </template>
+    </draggable>
+  </div>
 </template>
 
 <script>

@@ -1,56 +1,59 @@
 <template>
-      <fragment v-if="row.type_obj=='user'">
-    <!-- if element is user -->
-        <div class="row p-2 " v-if='edit'>
-         <b-input-group tag='form'>
-            <b-form-input v-model='oldRow.fields.fullname'/>
-            <b-form-input v-model='oldRow.fields.email'/>
-            <b-form-input v-model='oldRow.fields.phone'/>
-            <b-form-input :list='oldRow.pk.split(":").join("_")'
-            v-model="oldRow.fields.work"></b-form-input>
-            <b-form-datalist :id='oldRow.pk.split(":").join("_")'
-            :options="selected"></b-form-datalist>
-              <b-input-group-append>
-                <b-button  @click="save()">Save</b-button>
-                <b-button  @click="cansel()">Cansel</b-button>
-              </b-input-group-append>
-          </b-input-group>
+  <template v-if="row.type_obj === 'user'">
+    <div v-if="edit" class="row p-2">
+      <form class="input-group" @submit.prevent="save()">
+        <input v-model="oldRow.fields.fullname" class="form-control" />
+        <input v-model="oldRow.fields.email" class="form-control" />
+        <input v-model="oldRow.fields.phone" class="form-control" />
+        <input
+          v-model="oldRow.fields.work"
+          class="form-control"
+          :list="oldRow.pk.split(':').join('_')"
+        />
+        <datalist :id="oldRow.pk.split(':').join('_')">
+          <option v-for="item in selected" :key="item" :value="item"></option>
+        </datalist>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" @click="cansel()">Cansel</button>
+      </form>
+    </div>
+    <div v-else class="row p-2">
+      <div class="col">{{ row.fields.fullname }}</div>
+      <div class="col">{{ row.fields.email }}</div>
+      <div class="col">{{ row.fields.phone }}</div>
+      <div class="col">{{ row.fields.work }}</div>
+      <div class="col flex-grow-0">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-warning" @click="editRow()">Edit</button>
+          <button type="button" class="btn btn-info" @click="deleteRow()">Delete</button>
         </div>
-        <div class="row p-2" v-else>
-          <b-col>{{row.fields.fullname}}</b-col>
-          <b-col>{{row.fields.email}}</b-col>
-          <b-col>{{row.fields.phone}}</b-col>
-          <b-col>{{row.fields.work}}</b-col>
-                    <b-col style="flex-grow:inherit;">
-            <b-button-group  size="sm">
-            <b-button variant="warning" @click="editRow()">Edit</b-button>
-            <b-button variant="info"  @click="deleteRow()">Delete</b-button>
-            </b-button-group>
-                    </b-col>
+      </div>
+    </div>
+  </template>
+  <template v-else>
+    <div v-if="edit" class="row p-2">
+      <form class="input-group" @submit.prevent="save()">
+        <input
+          v-model="oldRow.fields.name"
+          class="form-control"
+          :placeholder="row.fields.fullname"
+        />
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" @click="cansel()">Cansel</button>
+      </form>
+    </div>
+    <div v-else class="row p-2">
+      <div class="col">{{ row.fields.name }}</div>
+      <div class="col flex-grow-0">
+        <div class="btn-group btn-group-sm">
+          <button type="button" class="btn btn-success" @click="new_user()">Add user</button>
+          <button type="button" class="btn btn-success" @click="new_struct()">Add struct</button>
+          <button type="button" class="btn btn-warning" @click="editRow()">Edit</button>
+          <button type="button" class="btn btn-info" @click="deleteRow()">Delete</button>
         </div>
-  </fragment>
-  <fragment v-else>
-    <!-- if element is strict -->
-        <div class="row p-2 " v-if='edit'>
-<b-input-group tag='form'>
-    <b-form-input :placeholder="row.fields.fullname" v-model='oldRow.fields.name'  />
-                <b-button  @click="save()">Save</b-button>
-            <b-button  @click="cansel()">Cansel</b-button>
-            </b-input-group>
-        </div>
-        <div class="row p-2" v-else>
-                    <b-col>{{row.fields.name}}</b-col>
-                    <b-col style="flex-grow:inherit;">
-                      <b-button-group size="sm">
-                        <b-button variant="success" @click='new_user()'>Add user</b-button>
-                        <b-button variant="success" @click='new_struct()'>Add struct</b-button>
-                        <b-button variant="warning" @click="editRow()">Edit</b-button>
-                        <b-button variant="info" @click="deleteRow()">Delete</b-button>
-                      </b-button-group>
-                    </b-col>
-        </div>
-    </fragment>
-
+      </div>
+    </div>
+  </template>
 </template>
 <script>
 
